@@ -1,134 +1,152 @@
-#================INSERTSORT===================
-def insert(vet, size, cmp):
-    for i in range(1, size):
-        selected = vet[i]
-        j = i - 1
-        while (j >= 0) and cmp(vet[j], selected) > 0:
-            vet[j + 1] = vet[j]
-            j = j - 1
-        vet[j + 1] = selected
-#=============================================
+#================INSERTIONSORT===================
+def insertionSort(ar1):
+
+    for i in range(1, len(ar1)):
+ 
+        key = ar1[i]
+        j = i-1
+        while j >=0 and key < ar1[j] :
+                ar1[j+1] = ar1[j]
+                j -= 1
+        ar1[j+1] = key
+#============================================
 
 
 
-#==================QUICKSORT======================
-def quick(vet, first, last, cmp):
-    i = first
-    j = last - 1
-    pivot = vet[last - 1]
-    while i <= j:
-        while cmp(vet[i], pivot) == -1 and i < last:
-            i = i + 1
+#=================QUICKSORT=====================
+def partition(arr,low,high):
+    i = ( low-1 )         # index do menor elemento
+    pivot = arr[high]     # pivo
+ 
+    for j in range(low , high):
+ 
+        # Se o elemento atual eh menor que ou
+        # igual ao pivo
+        if   arr[j] <= pivot:
+         
+            # incrementa o index do menor elemento
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i]
+ 
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return ( i+1 )
+ 
 
-        while cmp(vet[j], pivot) == 1 and j > first:
-            j = j - 1
-        if i <= j:
-            vet[j], vet[i] = vet[i], vet[j]
-            i = i + 1
-            j = j - 1
-
-    if j > first:
-        quick(vet, first, j + 1, cmp)
-
-    if i < last:
-        quick(vet, i, last, cmp)
+# arr[] --> Array 
+# low  --> index inicial
+# high  --> index final 
+def quickSort(arr,low,high):
+    if low < high:
+ 
+        # pi eh o index particionado, arr[p] esta agora
+        # no lugar certo
+        pi = partition(arr,low,high)
+ 
+        # ordenando separadamente os que
+        # se encontram antes e depois da particao
+        quickSort(arr, low, pi-1)
+        quickSort(arr, pi+1, high)
 #=================================================
 
-
-
-#================SHELLSORT====================
-def shell(vet, h, size, cmp):
-    flag = 0
-    if h < 1:
-        h = 2
-    while h > 1 or flag:
-        for i in range(h, size):
-
-            selected = vet[i]
+#===================SHELLSORT=====================
+def shellSort(arr):
+ 
+    # Start with a big gap, then reduce the gap
+    n = len(arr)
+    gap = n//2
+ 
+    # Do a gapped insertion sort for this gap size.
+    # The first gap elements a[0..gap-1] are already in gapped 
+    # order keep adding one more element until the entire array
+    # is gap sorted
+    while gap > 0:
+ 
+        for i in range(gap,n):
+ 
+            # add a[i] to the elements that have been gap sorted
+            # save a[i] in temp and make a hole at position i
+            temp = arr[i]
+ 
+            # shift earlier gap-sorted elements up until the correct
+            # location for a[i] is found
             j = i
-            while  j >= h and cmp(vet[j-h], selected) > 0:
-                vet[j] = vet[j-h]
-                j = j - h
-            vet[j] = selected
+            while  j >= gap and arr[j-gap] >temp:
+                arr[j] = arr[j-gap]
+                j -= gap
+ 
+            # put temp (the original a[i]) in its correct location
+            arr[j] = temp
+        gap //= 2
+#==================================================
 
-        h = (h + 1) // 2
-#================================================
 
-
-
-#=================HEAPSORT==================
-def heap_bdm(vet, n, i, cmp):
-    largest = i
-    l = 2*i + 1
-    r = 2*i + 2
-    if l < n and cmp(vet[i], vet[l]) == -1:
+#====================HEAPSORT=====================
+def heapify(arr, n, i):
+    largest = i  # Initialize largest as root
+    l = 2 * i + 1     # left = 2*i + 1
+    r = 2 * i + 2     # right = 2*i + 2
+ 
+    # See if left child of root exists and is
+    # greater than root
+    if l < n and arr[i] < arr[l]:
         largest = l
-    if r < n and cmp(vet[largest], vet[r]) == -1:
+ 
+    # See if right child of root exists and is
+    # greater than root
+    if r < n and arr[largest] < arr[r]:
         largest = r
+ 
+    # Change root, if needed
     if largest != i:
-        vet[i], vet[largest] = vet[largest], vet[i]
-        heap_bdm(vet, n, largest, cmp)
-
-def heap(vet, cmp):
-    n = len(vet)
+        arr[i],arr[largest] = arr[largest],arr[i]  # swap
+ 
+        # Heapify the root.
+        heapify(arr, n, largest)
+ 
+# The main function to sort an array of given size
+def heapSort(arr):
+    n = len(arr)
+ 
+    # Build a maxheap.
     for i in range(n, -1, -1):
-        heap_bdm(vet, n, i, cmp)
-    for i in range(n - 1, 0, -1):
-        vet[i], vet[0] = vet[0], vet[i]
-        heap_bdm(vet, i, 0, cmp)
-#===========================================
+        heapify(arr, n, i)
+ 
+    # One by one extract elements
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]   # swap
+        heapify(arr, i, 0)
+#===============================================
 
-
-
-#===============BINARY INSERTSORT=================
-def binary_search(vet, key, low, high, cmp):
-    mid = (low + high) // 2
-    if high <= low:
-        if cmp(key, vet[low]) == 1:
-            return low + 1
+#==============BINARY_INSERTIONSORT=============
+def binary_search(arr, val, start, end):
+    # we need to distinugish whether we should insert
+    # before or after the left boundary.
+    # imagine [0] is the last step of the binary search
+    # and we need to decide where to insert -1
+    if start == end:
+        if arr[start] > val:
+            return start
         else:
-            return low
-    if cmp(key, vet[mid]) == 0:
-        return mid + 1
-    elif cmp(key, vet[mid]) == 1:
-        return binary_search(vet, key, mid + 1, high)
-    return binary_search(vet, key, low, mid - 1)
-
-
-def binary_insertSort(vet, size, cmp):
-    for i in range(0, size):
-        j = i - 1
-        key = vet[i]
-        location = binary_search(vet, key, 0, j, cmp)
-        while j >= location:
-            vet[j + 1] = vet[j]
-            j = j - 1
-        vet[j + 1] = key
-#================================================
-
-
-
-def timsort(the_array):
-    runs, sorted_runs = [], []
-    l = len(the_array)
-    new_run = [the_array[0]]
-    for i in range(1, l):
-        if i == l-1:
-            new_run.append(the_array[i])
-            runs.append(new_run)
-            break
-        if the_array[i] < the_array[i-1]:
-            if not new_run:
-                runs.append([the_array[i-1]])
-                new_run.append(the_array[i])
-            else:
-                runs.append(new_run)
-                new_run = []
-        else:
-            new_run.append(the_array[i])
-    for each in runs:
-        sorted_runs.append(insertion_sort(each))
-    sorted_array = []
-    for run in sorted_runs:
-        sorted_array = merge(sorted_array, run)
-    print sorted_array
+            return start+1
+ 
+    # this occurs if we are moving beyond left's boundary
+    # meaning the left boundary is the least position to
+    # find a number greater than val
+    if start > end:
+        return start
+ 
+    mid = (start+end)//2
+    if arr[mid] < val:
+        return binary_search(arr, val, mid+1, end)
+    elif arr[mid] > val:
+        return binary_search(arr, val, start, mid-1)
+    else:
+        return mid
+ 
+def binary_sort(arr):
+    for i in range(1, len(arr)):
+        val = arr[i]
+        j = binary_search(arr, val, 0, i-1)
+        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
+    return arr
+#==============================================
