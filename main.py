@@ -70,21 +70,21 @@ def printArray(arr1,arr2):
 #~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~~~~~~~~~~~~~
 dic={}
 a=0
-b=0
 metodo=1
 while(a != 9):
-	print("\n===========PLAY?===========\n")
+	print("\n=========== PLAY THE PROGRAM? ===========\n")
 	print("\t[Y]\n")
 	print("\t[N]\n")
 	play=input()
 	if(play=='n'or play=='N'):
 		break
-	caminho=input('Digite o caminho do arquivo\n')
-	print("\tWAIT A SECOND =) ...")
+	caminho=input('Digite o nome do arquivo\n')
+	print("\tWAIT A FEW SECONDS :)    ...")
 	dic=cria_dicionario(caminho)
 	array_word=dict_to_array_word(dic)
 	array_freq=dict_to_array_freq(dic)
 	n=len(array_word)
+	b=0
 	while(b!=9):
 		print("\n===========MENU ============\n")
 		print("1 - Escolher Metodo")
@@ -134,6 +134,12 @@ while(a != 9):
 					printArray(array_freq,array_word)
 				elif(sortmetod==3):
 					ordena.shellSortFreq(array_freq,array_word)
+					printArray(array_freq,array_word)
+				elif(sortmetod==4):
+					ordena.heapSortFreq(array_freq,array_word)
+					printArray(array_freq,array_word)
+				elif(sortmetod==5):
+					ordena.binary_insert_sortFreq(array_freq,array_word)
 					printArray(array_freq,array_word)
 		elif(resp==3):
 			b=9
