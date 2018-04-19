@@ -1,5 +1,20 @@
+
 #================INSERTIONSORT===================
-def insertionSort(ar1):
+def insertionSortfreq(ar1,ar2):
+
+    for i in range(1, len(ar1)):
+ 
+        key = ar1[i]
+        key2 = ar2[i]
+        j = i-1
+        while j >=0 and key > ar1[j] :
+                ar1[j+1] = ar1[j]
+                ar2[j+1] = ar2[j]
+                j -= 1
+        ar2[j+1] = key2
+        ar1[j+1] = key
+
+def insertionSortAlfa(ar1):
 
     for i in range(1, len(ar1)):
  
@@ -35,7 +50,7 @@ def partition(arr,low,high):
 # arr[] --> Array 
 # low  --> index inicial
 # high  --> index final 
-def quickSort(arr,low,high):
+def quickSortAlfa(arr,low,high):
     if low < high:
  
         # pi eh o index particionado, arr[p] esta agora
@@ -44,12 +59,49 @@ def quickSort(arr,low,high):
  
         # ordenando separadamente os que
         # se encontram antes e depois da particao
-        quickSort(arr, low, pi-1)
-        quickSort(arr, pi+1, high)
+        quickSortAlfa(arr, low, pi-1)
+        quickSortAlfa(arr, pi+1, high)
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def partition2(arr,low,high,arr2):
+    i = ( low-1 )         # index do menor elemento
+    pivot = arr[high]     # pivo
+ 
+    for j in range(low , high):
+ 
+        # Se o elemento atual eh menor que ou
+        # igual ao pivo
+        if   not (arr[j] <= pivot):
+         
+            # incrementa o index do menor elemento
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i]
+            arr2[i],arr2[j] = arr2[j],arr2[i]
+ 
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    arr2[i+1],arr2[high] = arr2[high],arr2[i+1]
+    return ( i+1 )
+ 
+
+# arr[] --> Array 
+# low  --> index inicial
+# high  --> index final 
+def quickSortFreq(arr,low,high,arr2):
+    if low < high:
+ 
+        # pi eh o index particionado, arr[p] esta agora
+        # no lugar certo
+        pi = partition2(arr,low,high,arr2)
+ 
+        # ordenando separadamente os que
+        # se encontram antes e depois da particao
+        quickSortFreq(arr, low, pi-1,arr2)
+        quickSortFreq(arr, pi+1, high,arr2)
+
+
 #=================================================
 
 #===================SHELLSORT=====================
-def shellSort(arr):
+def shellSortAlfa(arr):
  
     # Start with a big gap, then reduce the gap
     n = len(arr)
@@ -76,6 +128,38 @@ def shellSort(arr):
  
             # put temp (the original a[i]) in its correct location
             arr[j] = temp
+        gap //= 2
+
+def shellSortFreq(arr,arr2):
+ 
+    # Start with a big gap, then reduce the gap
+    n = len(arr)
+    gap = n//2
+ 
+    # Do a gapped insertion sort for this gap size.
+    # The first gap elements a[0..gap-1] are already in gapped 
+    # order keep adding one more element until the entire array
+    # is gap sorted
+    while gap > 0:
+ 
+        for i in range(gap,n):
+ 
+            # add a[i] to the elements that have been gap sorted
+            # save a[i] in temp and make a hole at position i
+            temp = arr[i]
+            temp2= arr2[i]
+ 
+            # shift earlier gap-sorted elements up until the correct
+            # location for a[i] is found
+            j = i
+            while  (j >= gap and arr[j-gap] <temp):
+                arr[j] = arr[j-gap]
+                arr2[j] = arr2[j-gap]
+                j -= gap
+ 
+            # put temp (the original a[i]) in its correct location
+            arr[j] = temp
+            arr2[j] = temp2
         gap //= 2
 #==================================================
 
@@ -104,7 +188,7 @@ def heapify(arr, n, i):
         heapify(arr, n, largest)
  
 # The main function to sort an array of given size
-def heapSort(arr):
+def heapSortAlfa(arr):
     n = len(arr)
  
     # Build a maxheap.
@@ -143,10 +227,9 @@ def binary_search(arr, val, start, end):
     else:
         return mid
  
-def binary_sort(arr):
+def binary_insert_sortAlfa(arr):
     for i in range(1, len(arr)):
         val = arr[i]
         j = binary_search(arr, val, 0, i-1)
-        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
-    return arr
+        arr[:] = arr[:j] + [val] + arr[j:i] + arr[i+1:]
 #==============================================
