@@ -1,7 +1,5 @@
 import re
 import ordena
-import acentuacao
-from unicodedata import normalize
 
 
 '''
