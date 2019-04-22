@@ -1,5 +1,5 @@
 import re
-import ordena
+import metodo
 
 
 '''
@@ -109,43 +109,43 @@ while(a != 9):
 				metodo=1
 			elif(metodo==1):
 				if(sortmetod==1):
-					ordena.insertionSortAlfa(array_word)
+					metodo.insertionSortAlfa(array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==2):
-					ordena.quickSortAlfa(array_word,0,n-1)
+					metodo.quickSortAlfa(array_word,0,n-1)
 					printArray(array_freq,array_word)
 				elif(sortmetod==3):
-					ordena.shellSortAlfa(array_word)
+					metodo.shellSortAlfa(array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==4):
-					ordena.heapSortAlfa(array_word)
+					metodo.heapSortAlfa(array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==5):
-					ordena.binary_insert_sortAlfa(array_word)
+					metodo.binary_insert_sortAlfa(array_word)
 					printArray(array_freq,array_word)
 			elif(metodo==2):
 				if(sortmetod==1):
-					ordena.insertionSortfreq(array_freq,array_word)
+					metodo.insertionSortfreq(array_freq,array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==2):
-					ordena.quickSortFreq(array_freq,0,n-1,array_word)
+					metodo.quickSortFreq(array_freq,0,n-1,array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==3):
-					ordena.shellSortFreq(array_freq,array_word)
+					metodo.shellSortFreq(array_freq,array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==4):
-					ordena.heapSortFreq(array_freq,array_word)
+					metodo.heapSortFreq(array_freq,array_word)
 					printArray(array_freq,array_word)
 				elif(sortmetod==5):
-					ordena.binary_insert_sortFreq(array_freq,array_word)
+					metodo.binary_insert_sortFreq(array_freq,array_word)
 					printArray(array_freq,array_word)
 		elif(resp==3):
 			b=9
 
 
-#ordena.shellSort(array_word)
-#ordena.heapSort(array_word)
-#ordena.binary_insert_sort(array_word)
+#metodo.shellSort(array_word)
+#metodo.heapSort(array_word)
+#metodo.binary_insert_sort(array_word)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
